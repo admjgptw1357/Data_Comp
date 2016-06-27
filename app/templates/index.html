@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="{% static 'lang-logo.png'%}">
+    </a>
+    <h1>Data Competition JUDGE System</h1>
+    <p>You can easily judge your results.</p>
+    <a type="button" class="btn btn-lg btn-default" href="accounts/login"> Log in</a>
+    <a type="button" class="btn btn-lg btn-primary" href="competition/list">Compatition List </a>
+  </div>
+</div>
+<div class="container">
+
+{#  <hr>#}
+  <div class="row">
+{#    <div class="col-md-6">#}
+{#        a#}
+{##}
+{#    </div>#}
+{#    <div class="col-md-6">#}
+{#        b#}
+{#    </div>#}
+  </div> <!-- row -->
+   <div class="alert alert-info text-center" role="alert">
+    If you find any troubles, please be patient.
+  </div>
+</div>
+{% endblock %}

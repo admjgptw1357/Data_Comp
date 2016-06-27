@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h2 class="page-header">{{ competition.name }}</h2>
+    <h3>Infomation</h3>
+    <ul><li>test size: {{ competition.data_number }}</li>
+        <li>contest type:  {{ competition.contest_type }}</li>
+        <li>scoring:  {{ competition.scoring }}</li>
+        <li>end time:  {{ competition.end_date }}</li>
+    </ul>
+    {% if competition.expired %}
+        <a class="btn btn-danger" role="button"><b>EXPIRED</b></a><br>
+        <div style="text-align:right;;">
+            {#            <h4>EXPIRED</h4>#}
+            <a type="button" class="btn btn-lg btn-primary"
+            href="{% url "app:submission" id=competition.id %}" >Submission </a>
+        </div>
+        <hr>
+        <h3>Description</h3>
+        {{ competition.description|linebreaks|urlize }}
+        <br><h3> Final Score</h3>
+      <table class="table table-striped table-bordered order">
+      <thead>
+        <tr>
+          <th>user name</th>
+            <th>final score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sub in agg %}
+        <tr>
+          <td>{{ sub.user }}</td>
+            <td>{{ sub.value }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+
+    <h3>Your submission</h3>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>user name</th>
+            <th>mid score</th>
+            <th>final score</th>
+            <th>submission date</th>
+            <th>comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sub in submissions %}
+        <tr>
+          <td>{{ sub.user }}</td>
+            <td>{{ sub.mid_result }}</td>
+            <td>{{ sub.f_result }}</td>
+            <td>{{ sub.submission_date }}</td>
+            <td>{{ sub.short_comment }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+{#        koko kara #}
+    {% else %}
+        <div style="text-align:right;;">
+        <a type="button" class="btn btn-lg btn-primary"
+           href="{% url "app:submission" id=competition.id %}" >Submission </a>
+        </div>
+         <hr>
+               <h3>Description</h3>
+
+                {{ competition.description|linebreaks|urlize }}
+
+      <table class="table table-striped table-bordered order">
+        <br><h3>Mid Score</h3>
+      <thead>
+        <tr>
+          <th>user name</th>
+            <th>mid score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sub in agg %}
+        <tr>
+          <td>{{ sub.user }}</td>
+            <td>{{ sub.value }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+        <br>
+    <h3>Your submission</h3>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>user name</th>
+            <th>mid score</th>
+            <th>submission date</th>
+            <th>comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sub in submissions %}
+        <tr>
+          <td>{{  sub.user }}</td>
+            <td>{{ sub.mid_result }}</td>
+            <td>{{ sub.submission_date }}</td>
+            <td>{{ sub.short_comment }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+
+
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+</div> <!-- /container -->
+
+<script>
+    var tables = document.getElementsByClassName("order");
+    var table = tables[tables.length - 1];
+    var rows = table.rows;
+    th = document.createElement('th');
+    th.appendChild(document.createTextNode("order"));
+    rows[0].insertBefore(th, rows[0].firstChild);
+
+    for(var i = 0, td; i < rows.length -1; i++){
+        td = document.createElement('td');
+        td.appendChild(document.createTextNode(i + 1));
+        rows[i+1].insertBefore(td, rows[i+1].firstChild);
+    }
+</script>
+
+
+{% endblock %}

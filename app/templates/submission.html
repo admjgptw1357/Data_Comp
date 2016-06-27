@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h3 class="page-header">Submission: {{ competition.name }}</h3>
+        {% if competition.errors %}
+          <div class="alert alert-info text-center" role="alert">
+            <h4>Something incorrect.</h4>
+            1. The number of lines must be {{ competition.data_number }}<br>
+            2. The number of submission in a day must be less than or equal to {{ competition.max_submission }}.<br>
+            3. All submission characters are a digit or "." or "\n".
+          </div>
+        {% endif %}
+        <form method="post" action="">    {% csrf_token %}
+          <label for="result">Your result:</label>
+          <textarea class="form-control" rows="10" name="result"></textarea><br>
+          <label for="short_comment">Short comment(opt):</label>
+          <input class="form-control" name="short_comment"><br>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit" value="send">Submit</button>
+        </form>
+    <div class="col-md-2"></div>
+  </div>
+
+</div> <!-- /container -->
+
+
+
+{% endblock %}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JUDGE SYSTEM</title>
+    <!-- BootstrapのCSS読み込み -->
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+    <!-- jQuery読み込み -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- BootstrapのJS読み込み -->
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+      <style type="text/css"><!-- th{text-align: center} --></style>
+  </head>
+  <body>
+<nav class="navbar navbar-default ">
+  <div class="container-fluid">
+  <!-- ヘッダー部分 ================ -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">JUDGE</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_target">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+        <ul class="nav navbar-nav navbar-right">
+        <!-- リンクのみ -->
+          <li><a href="{% url "app:competition_list" %}">Competition List</a></li>
+{#          <li><a href="{% url 'django.contrib.auth.views.logout' %}">Log Out</a></li>#}
+             {% if user.is_authenticated %}
+             <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+
+                <li class="divider"></li>
+                <li>
+                    <a href="/logout">Logout</a>
+                </li>
+            </ul>
+            </li>
+{#            {% else %}#}
+{#                 <li><a href="{% url 'django.contrib.auth.views.login' %}">Log in</a></li>#}
+            {% endif %}
+{#          <li><a href="#"></a></li>#}
+      </ul>
+  </div>
+</nav>
+{% block content %}{% endblock %}
+
+</body>
+</html>
